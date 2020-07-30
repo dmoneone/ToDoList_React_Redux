@@ -36,7 +36,7 @@ export type Profile = {
 export const profile_api = {
     getProfile() {
         const token = localStorage.getItem('token')
-        if(!token) return console.error('token is null at profile_api.getProfile')
+        if(!token) return 
 
         return a.get<Profile>('profile', {
             headers: {
@@ -48,13 +48,19 @@ export const profile_api = {
 
 export type List = {
     list: Array<Item>,
-    userId: string
+    userId: string,
+    pageCount: number
+}
+
+export type RemovedPost = {
+    postId: string,
+    message: string
 }
 
 export const list_api = {
     getList(page: number) {
         const token = localStorage.getItem('token')
-        if(!token) return console.error('token is null at list_api.getList')
+        if(!token) return 
 
         return a.get<List>(`list?page=${page}`, {
             headers: {
@@ -64,7 +70,7 @@ export const list_api = {
     },
     addPost(title: string) {
         const token = localStorage.getItem('token')
-        if(!token) return console.error('token is null at list_api.addPost')
+        if(!token) return 
 
         return a.post(`list/addPost`, { title } ,{
             headers: {
@@ -74,7 +80,7 @@ export const list_api = {
     },
     updatePost(postId: string, title: string) {
         const token = localStorage.getItem('token')
-        if(!token) return console.error('token is null at list_api.updatePost')
+        if(!token) return 
 
         return a.put(`list/updatePost`, { postId, title } ,{
             headers: {
@@ -82,9 +88,9 @@ export const list_api = {
             }
         }).then(res => res.data)
     },
-    removePost(postId: string) {
+    removePost<RemovedPost>(postId: string) {
         const token = localStorage.getItem('token')
-        if(!token) return console.error('token is null at list_api.removePost')
+        if(!token) return 
 
         return a.delete(`list/removePost/${postId}`, {
             headers: {
@@ -94,7 +100,7 @@ export const list_api = {
     },
     clearList() {
         const token = localStorage.getItem('token')
-        if(!token) return console.error('token is null at list_api.clearList')
+        if(!token) return 
 
         return a.post(`list/clearList`, {
             headers: {

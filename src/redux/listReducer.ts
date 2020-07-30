@@ -1,6 +1,6 @@
 import store, { ActionsTypes, GlobalState } from "./redux_store"
 import { ThunkAction } from "redux-thunk"
-import { list_api, List } from "../api/api"
+import { list_api, List, RemovedPost } from "../api/api"
 
 export type Item = {
     date: string,
@@ -9,7 +9,8 @@ export type Item = {
 }
 
 const initialState = {
-    list: [] as Array<Item>
+    list: [] as Array<Item>,
+    pageCount: 0
 }
 
 type State = typeof initialState
@@ -21,7 +22,14 @@ const listReducer = (state: State = initialState, action: ActionTypes): State  =
         case 'toDoList/list/setList': {
             return {
                 ...state,
-                list: action.list
+                list: action.list,
+                pageCount: action.pageCount
+            }
+        }
+        case 'toDoList/list/setRemovePost': {
+            return {
+                ...state,
+                list: state.list.filter(item => item._id !== action.postId)
             }
         }
         default: return state
@@ -29,9 +37,14 @@ const listReducer = (state: State = initialState, action: ActionTypes): State  =
 }
 
 export const actions = {
-    setList: (list: Array<Item>) => ({
+    setList: (list: Array<Item>, pageCount: number) => ({
         type: 'toDoList/list/setList',
-        list
+        list,
+        pageCount
+    } as const),
+    setRemovedPost: (postId: string) => ({
+        type: 'toDoList/list/setRemovePost',
+        postId
     } as const)
 }
 
@@ -41,11 +54,23 @@ export const getList = (page: number): Thunk => async (dispatch) => {
     try {
         //@ts-ignore
         const data: List = await list_api.getList(page)
-        dispatch(actions.setList(data.list))
+        dispatch(actions.setList(data.list, data.pageCount))
     } catch(err) {
         console.log(err)
     }
 }
+
+export const removePost = (postId: string): Thunk => async (dispatch) => {
+    try {
+        //@ts-ignore
+        const data: RemovedPost = await list_api.removePost(postId)
+        dispatch(actions.setRemovedPost(data.postId))
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+
 
 
 export default listReducer

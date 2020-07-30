@@ -17,3 +17,8 @@
 .header{
   grid-area: header;
 }
+
+.collection-item{
+  display: flex;
+  justify-content: space-between;
+}
