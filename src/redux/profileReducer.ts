@@ -1,9 +1,7 @@
 import store, { ActionsTypes, GlobalState } from "./redux_store"
 import { ThunkAction } from "redux-thunk"
-import { auth_api, profile_api, Profile } from "../api/api"
-import { AxiosResponse } from "axios"
-import { actions as setLogout } from './authReducer'
-import { stopSubmit } from "redux-form"
+import { profile_api, Profile } from "../api/api"
+import {  getLogout } from './authReducer'
 
 const initialState = {
     user: {
@@ -38,10 +36,9 @@ export const actions = {
     } as const),
 }
 
-type Logout = typeof setLogout.setLogout
-type LogoutAction = ReturnType<Logout>
 
-type Thunk =  ThunkAction<Promise<void>, GlobalState, unknown, ActionTypes | LogoutAction>
+
+type Thunk =  ThunkAction<Promise<void>, GlobalState, unknown, ActionTypes>
 
 export const getProfile = (): Thunk => async (dispatch) => {
     try {
@@ -51,7 +48,7 @@ export const getProfile = (): Thunk => async (dispatch) => {
 
     } catch(err) {
         if(err.response.status === 401 && err.response.statusText === 'Unauthorized') {
-            dispatch(setLogout.setLogout())
+            dispatch(getLogout())
         }
     }
     

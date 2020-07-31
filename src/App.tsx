@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './redux/redux_store';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
-import List from './components/List/List';
+import List from './components/List/ContainerList';
 
 const App = () => {
     return (

@@ -1,37 +1,25 @@
 import React, { FC, useEffect } from 'react'
-import { withAuthRedirect } from '../../hocs/withAuth'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { Item as ItemType, getList, removePost } from '../../redux/listReducer'
-import { GlobalState } from '../../redux/redux_store'
 import Paginator from './Paginator/Paginator'
 import Item from './Item/Item'
-import shortid from 'shortid'
+import { Item as ItemType } from '../../redux/listReducer'
+import AddNewPostForm from './AddNewPostForm/AddNewPostForm'
 
-type MapState = {
+type Props = {
     list: Array<ItemType>,
-    pageCount: number
-}
-
-type MapDispatch ={
+    pageCount: number,
     getList: (page: number) => void
     removePost: (postId: string) => void
+    clearList: () => void
 }
 
-type Props = MapState & MapDispatch
-
-const List: FC<Props> = (props) => {
-
-    useEffect(() => {
-        props.getList(1)
-    }, [])
-
-    console.log(props.list, '__')
+const List: FC<Props> = React.memo(props => {
 
     return (
         <div>
+            <AddNewPostForm/>
+            <button onClick={() => props.clearList()}>Clear List</button>
             <ul className={'collection'}>
-                { props.list.length >= 0 && props.list.map(item => {
+                { props.list.length > 0 && props.list.map(item => {
                     return <Item
                         key={item._id}
                         id={item._id}
@@ -40,6 +28,7 @@ const List: FC<Props> = (props) => {
                         removePost={props.removePost}
                     />
                 }) }
+                { props.list.length === 0 && <span>No Items</span>}
             </ul>
             <Paginator 
                 getList={props.getList}
@@ -48,11 +37,7 @@ const List: FC<Props> = (props) => {
             />
         </div>
     )
-}
-
-const mapStateToProps = (state: GlobalState): MapState => ({
-    list: state.listReducer.list,
-    pageCount: state.listReducer.pageCount
 })
 
-export default connect(mapStateToProps, { getList, removePost })(withAuthRedirect(List))
+
+export default List

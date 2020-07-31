@@ -52,9 +52,19 @@ export type List = {
     pageCount: number
 }
 
-export type RemovedPost = {
+export interface RemovedPost  {
     postId: string,
     message: string
+}
+
+export interface UpdatedPost extends RemovedPost {
+    newTitle: string
+}
+
+export interface AddedPost {
+    message: string,
+    newPostTitle: string,
+    id: string
 }
 
 export const list_api = {
@@ -68,7 +78,7 @@ export const list_api = {
             }
         }).then(res => res.data)
     },
-    addPost(title: string) {
+    addPost<AddedPost>(title: string) {
         const token = localStorage.getItem('token')
         if(!token) return 
 
@@ -78,7 +88,7 @@ export const list_api = {
             }
         }).then(res => res.data)
     },
-    updatePost(postId: string, title: string) {
+    updatePost<UpdatedPost>(postId: string, title: string) {
         const token = localStorage.getItem('token')
         if(!token) return 
 
@@ -87,6 +97,7 @@ export const list_api = {
                 Authorization: token
             }
         }).then(res => res.data)
+    
     },
     removePost<RemovedPost>(postId: string) {
         const token = localStorage.getItem('token')
@@ -101,8 +112,8 @@ export const list_api = {
     clearList() {
         const token = localStorage.getItem('token')
         if(!token) return 
-
-        return a.post(`list/clearList`, {
+        
+        return a.delete(`list/clearList`, {
             headers: {
                 Authorization: token
             }
