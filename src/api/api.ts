@@ -30,6 +30,7 @@ export type Profile = {
         email: string | null,
         name: string | null,
         userId: string | null,
+        avatarUrl: string | null
     }
 }
 

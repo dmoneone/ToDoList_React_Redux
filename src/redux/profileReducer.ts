@@ -7,7 +7,8 @@ const initialState = {
     user: {
         email: null as string | null,
         userId: null as string | null,
-        name: null as string | null
+        name: null as string | null,
+        avatarUrl: null as string | null,
     }
 }
 
@@ -42,8 +43,7 @@ type Thunk =  ThunkAction<Promise<void>, GlobalState, unknown, ActionTypes>
 
 export const getProfile = (): Thunk => async (dispatch) => {
     try {
-        //@ts-ignore
-        const data: Profile = await profile_api.getProfile() 
+        const data = await profile_api.getProfile() as Profile
         dispatch(actions.setProfile(data.user))
 
     } catch(err) {

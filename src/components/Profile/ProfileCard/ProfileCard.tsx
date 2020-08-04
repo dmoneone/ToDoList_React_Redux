@@ -5,7 +5,8 @@ type Props = {
     user: {
         email: string | null,
         userId: string | null,
-        name: string | null
+        name: string | null,
+        avatarUrl: string | null,
     }
 }
 
@@ -15,7 +16,7 @@ const ProfileCard: FC<Props> = (props) => {
         <div>
             <div className={c.card}>
                 <div className={c.card_header}>
-                    <img src="https://s-media-cache-ak0.pinimg.com/originals/3b/f0/77/3bf0775b0d234545d14a5941be966ab2.jpg"/>
+                    <img src={props.user.avatarUrl as string}/>
                 </div>
                 <div className={c.card_content}>
                     <h3>{user.name}</h3>

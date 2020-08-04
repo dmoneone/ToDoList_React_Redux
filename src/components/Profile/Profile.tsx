@@ -14,7 +14,8 @@ type MapState = {
     user: {
         email: string | null,
         userId: string | null,
-        name: string | null
+        name: string | null,
+        avatarUrl: string | null,
     }
 }
 
