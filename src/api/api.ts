@@ -4,7 +4,7 @@ import { actions } from '../redux/authReducer'
 import { Item } from '../redux/listReducer'
 
 const a = axios.create({
-    baseURL: '/api/',
+    baseURL: 'https://blooming-stream-23263.herokuapp.com/api/',
     headers: {
         'Content-Type': 'application/json',
     }
@@ -42,6 +42,20 @@ export const profile_api = {
         return a.get<Profile>('profile', {
             headers: {
                 Authorization: token
+            }
+        }).then(res => res.data)
+    },
+    setAvatar(file: any) {
+        const token = localStorage.getItem('token')
+        if(!token) return 
+
+        const formData = new FormData();
+        formData.append("avatar", file);
+
+        return a.post('profile/addAvatar', formData, {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'multipart/form-data'
             }
         }).then(res => res.data)
     }

@@ -65,3 +65,7 @@
   font-size: 2em;
   color: #3F51B5;
 }
+
+.file{
+  z-index: 5;
+}

@@ -54,6 +54,17 @@ export const getProfile = (): Thunk => async (dispatch) => {
     
 }
 
+export const setAvatar = (file: any): Thunk => async (dispatch) => {
+    try {
+        await profile_api.setAvatar(file) 
+        const data = await profile_api.getProfile() as Profile
+        dispatch(actions.setProfile(data.user))
+
+    } catch(err) {
+        console.log(err)
+    }
+    
+}
 
 
 
