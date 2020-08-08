@@ -4,7 +4,8 @@ import { actions } from '../redux/authReducer'
 import { Item } from '../redux/listReducer'
 
 const a = axios.create({
-    baseURL: 'https://blooming-stream-23263.herokuapp.com/api/',
+    //baseURL: 'https://blooming-stream-23263.herokuapp.com/api/',
+    baseURL: 'http://localhost:3005/api/',
     headers: {
         'Content-Type': 'application/json',
     }
@@ -21,6 +22,10 @@ export const auth_api = {
     },
     register(registerData: any) {
         return a.post('auth/register', registerData)
+    },
+    resetPassword(email: string) {
+        return a.post('auth/reset', { email })
+                .then(res => res.data)
     }
 }
 

@@ -5,6 +5,7 @@ import { stopSubmit } from "redux-form"
 
 const initialState = {
     isAuth: false,
+    resetMsg: null as string | null
 }
 
 type State = typeof initialState
@@ -30,6 +31,12 @@ const authReducer = (state: State = initialState, action: ActionTypes): State  =
                 ...state,
             }
         }
+        case 'toDoList/auth/setResetMsg': {
+            return {
+                ...state,
+                resetMsg: action.resetMsg
+            }
+        }
         default: return state
     }
 }
@@ -43,7 +50,11 @@ export const actions = {
     } as const),
     setRegister: () => ({
         type: 'toDoList/auth/setRegister',
-    } as const)
+    } as const),
+    setResetMsg: (resetMsg: string) => ({
+        type: 'toDoList/auth/setResetMsg',
+        resetMsg
+    } as const),
 }
 
 type Thunk =  ThunkAction<Promise<void>, GlobalState, unknown, ActionTypes>
@@ -58,6 +69,12 @@ export const getLogin = (loginData: any): Thunk => async (dispatch) => {
         if(err.response.status === 401) {
             dispatch(stopSubmit('login',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
         }
+        if(err.response.status === 404) {
+            dispatch(stopSubmit('login',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+        }
+        if(err.response.status === 422) {
+            dispatch(stopSubmit('login',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+        }
     }
 }
 
@@ -70,5 +87,23 @@ export const getLogout = (): Thunk => async (dispatch) => {
         console.log(e)
     }
 }
+
+export const getResetPassword = (email: string): Thunk => async (dispatch) => {
+    try {
+        const data = await auth_api.resetPassword(email)
+        dispatch(actions.setResetMsg(data.message))
+        
+
+    } catch(e) {
+        if(e.response.status === 404) {
+            dispatch(stopSubmit('reset',{_error: e.response.data.error ? e.response.data.error : 'some input error'}))
+        }
+        if(e.response.status === 422) {
+            dispatch(stopSubmit('reset',{_error: e.response.data.error ? e.response.data.error : 'some input error'}))
+        }
+    }
+}
+
+
 
 export default authReducer
