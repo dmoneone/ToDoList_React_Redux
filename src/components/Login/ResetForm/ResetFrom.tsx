@@ -3,6 +3,7 @@ import { maxLength, required } from "../../../form_validation_checks/formChecks"
 import { InjectedFormProps, reduxForm } from "redux-form"
 import { createField, Input } from "../../Form/Form"
 import c from '../Login.module.css'
+import { Redirect } from 'react-router-dom'
 
 const maxLength100 = maxLength(100)
 const maxLength50 = maxLength(50)

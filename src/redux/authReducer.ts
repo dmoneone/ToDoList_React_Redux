@@ -5,7 +5,8 @@ import { stopSubmit } from "redux-form"
 
 const initialState = {
     isAuth: false,
-    resetMsg: null as string | null
+    resetMsg: null as string | null,
+    successfullResetMsg: null as string | null
 }
 
 type State = typeof initialState
@@ -37,6 +38,12 @@ const authReducer = (state: State = initialState, action: ActionTypes): State  =
                 resetMsg: action.resetMsg
             }
         }
+        case 'toDoList/auth/setSuccessfullResetMsg': {
+            return {
+                ...state,
+                successfullResetMsg: action.msg
+            }
+        }
         default: return state
     }
 }
@@ -55,6 +62,10 @@ export const actions = {
         type: 'toDoList/auth/setResetMsg',
         resetMsg
     } as const),
+    setSuccessfullResetMsg: (msg: string) => ({
+        type: 'toDoList/auth/setSuccessfullResetMsg',
+        msg
+    } as const)
 }
 
 type Thunk =  ThunkAction<Promise<void>, GlobalState, unknown, ActionTypes>
@@ -100,6 +111,20 @@ export const getResetPassword = (email: string): Thunk => async (dispatch) => {
         }
         if(e.response.status === 422) {
             dispatch(stopSubmit('reset',{_error: e.response.data.error ? e.response.data.error : 'some input error'}))
+        }
+    }
+}
+
+export const savePassword = (userId: string, token: string, password: string): Thunk =>
+    async (dispatch) => {
+    try {
+
+        await auth_api.savePassword(userId, token, password)
+        dispatch(actions.setSuccessfullResetMsg('password successfully saved'))
+
+    } catch(e) {
+        if(e.response.status === 422) {
+            dispatch(stopSubmit('save_password',{_error: e.response.data.error ? e.response.data.error : 'some input error'}))
         }
     }
 }
