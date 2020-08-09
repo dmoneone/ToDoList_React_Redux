@@ -1,44 +1,31 @@
 import React, { FC, useEffect } from 'react'
 import { withAuthRedirect } from '../../hocs/withAuth'
-import { GlobalState } from '../../redux/redux_store'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { getProfile, setAvatar } from '../../redux/profileReducer'
+import { useDispatch } from 'react-redux'
+import { getProfile } from '../../redux/profileReducer'
 import ProfileCard from './ProfileCard/ProfileCard'
+import { useRouteMatch } from 'react-router-dom'
 
-type MapDispatch = {
-    getProfile: () => void
-    setAvatar: (file: any) => void
+
+
+type Props = {
+
 }
-
-type MapState = {
-    user: {
-        email: string | null,
-        userId: string | null,
-        name: string | null,
-        avatarUrl: string | null,
-    }
-}
-
-type Props = MapState & MapDispatch
 
 const Profile: FC<Props> = (props) => {
     
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        props.getProfile()
+        dispatch(getProfile())
     }, [])
 
     return (
         <>
-            <ProfileCard user={props.user} setAvatar={props.setAvatar}/>
+            <ProfileCard />
         </>
     )
 }
 
-const mapStateToProps = (state: GlobalState): MapState => ({
-    user: state.profileReducer.user
-})
-//@ts-ignore
-export default connect(mapStateToProps, {getProfile, setAvatar})(withAuthRedirect(Profile))
+export default withAuthRedirect(Profile)
 
 
