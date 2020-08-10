@@ -6,7 +6,8 @@ import { stopSubmit } from "redux-form"
 const initialState = {
     isAuth: false,
     resetMsg: null as string | null,
-    successfullResetMsg: null as string | null
+    successfullResetMsg: null as string | null,
+    newUserMsg: null as string | null
 }
 
 type State = typeof initialState
@@ -27,11 +28,6 @@ const authReducer = (state: State = initialState, action: ActionTypes): State  =
                 isAuth: false
             }
         }
-        case 'toDoList/auth/setRegister': {
-            return {
-                ...state,
-            }
-        }
         case 'toDoList/auth/setResetMsg': {
             return {
                 ...state,
@@ -42,6 +38,12 @@ const authReducer = (state: State = initialState, action: ActionTypes): State  =
             return {
                 ...state,
                 successfullResetMsg: action.msg
+            }
+        }
+        case 'toDoList/auth/setNewUser': {
+            return {
+                ...state,
+                newUserMsg: action.msg
             }
         }
         default: return state
@@ -55,15 +57,16 @@ export const actions = {
     setLogout: () => ({
         type: 'toDoList/auth/setLogout',
     } as const),
-    setRegister: () => ({
-        type: 'toDoList/auth/setRegister',
-    } as const),
-    setResetMsg: (resetMsg: string) => ({
+    setResetMsg: (resetMsg: string | null) => ({
         type: 'toDoList/auth/setResetMsg',
         resetMsg
     } as const),
-    setSuccessfullResetMsg: (msg: string) => ({
+    setSuccessfullResetMsg: (msg: string | null) => ({
         type: 'toDoList/auth/setSuccessfullResetMsg',
+        msg
+    } as const),
+    setNewUser: (msg: string | null) => ({
+        type: 'toDoList/auth/setNewUser',
         msg
     } as const)
 }
@@ -75,6 +78,9 @@ export const getLogin = (loginData: any): Thunk => async (dispatch) => {
         const data: Login = await auth_api.login(loginData)
         localStorage.setItem('token', data.token)
         dispatch(actions.setLogin())
+        dispatch(actions.setNewUser(null))
+        dispatch(actions.setResetMsg(null))
+        dispatch(actions.setSuccessfullResetMsg(null))
 
     } catch(err) {
         if(err.response.status === 401) {
@@ -88,6 +94,23 @@ export const getLogin = (loginData: any): Thunk => async (dispatch) => {
         }
     }
 }
+
+export const getRegister = (registerData: any): Thunk => async (dispatch) => {
+    try {
+        const data = await auth_api.register(registerData)
+        dispatch(actions.setNewUser(data.data.message))
+        debugger
+
+    } catch(err) {
+        if(err.response.status === 404) {
+            dispatch(stopSubmit('register',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+        }
+        if(err.response.status === 422) {
+            dispatch(stopSubmit('register',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+        }
+    }
+}
+
 
 export const getLogout = (): Thunk => async (dispatch) => {
     try {

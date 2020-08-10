@@ -4,9 +4,9 @@ import { InjectedFormProps, reduxForm } from "redux-form"
 import { createField, Input } from "../../Form/Form"
 import c from '../Login.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { getSuccessfullResetMsg } from '../../../redux/selectors/SavePasswordFormSelectors'
 import { Redirect, useRouteMatch } from 'react-router-dom'
 import { savePassword } from '../../../redux/authReducer'
+import { GlobalState } from '../../../redux/redux_store'
 
 const maxLength100 = maxLength(100)
 const maxLength50 = maxLength(50)
@@ -19,7 +19,7 @@ type NameType = Extract<keyof SubmitingDataType,string>
 
 const SavePasswordForm: React.FC<InjectedFormProps<SubmitingDataType, {}> & {}> = (props) => {
 
-    const resetMsg = useSelector(getSuccessfullResetMsg)
+    const resetMsg = useSelector((state: GlobalState) => state.authReducer.successfullResetMsg)
 
     return (
         <form onSubmit={props.handleSubmit}>

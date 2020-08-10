@@ -20,7 +20,7 @@ type MapDispatch ={
 type Props = MapState & MapDispatch
 
 const ContainerList: FC<Props> = (props) => {
-
+ 
     useEffect(() => {
         props.getList(1)
     }, [])

@@ -19,7 +19,7 @@ const App = () => {
               <Route path='/list' render={()=> <List/> } />
               <Route path='/auth/login' render={()=> <Login/> } />
               <Route path='/auth/logout' render={()=> <Login/> } />
-              <Route path='/auth/reset/:token/:userId' render={()=> <ResetPage/> } />
+              <Route exact path='/auth/reset/:token/:userId' render={()=> <ResetPage/> } />
               <Route path='/profile' render={()=> <Profile/> } />
               <Route path='/' exact><Redirect to='/profile'/></Route>
               <Route path='*' render={() => <div>404</div>} />

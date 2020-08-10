@@ -4,8 +4,8 @@ import { actions } from '../redux/authReducer'
 import { Item } from '../redux/listReducer'
 
 const a = axios.create({
-    //baseURL: 'https://blooming-stream-23263.herokuapp.com/api/',
-    baseURL: 'http://localhost:3005/api/',
+    baseURL: 'https://blooming-stream-23263.herokuapp.com/api/',
+    //baseURL: 'http://localhost:3005/api/',
     headers: {
         'Content-Type': 'application/json',
     }
