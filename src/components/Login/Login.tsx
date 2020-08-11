@@ -23,13 +23,15 @@ type SubmitingDataType = {
 type NameType = Extract<keyof SubmitingDataType,string>
 
 const LoginForm: React.FC<InjectedFormProps<SubmitingDataType, {}> & {}> = (props) => {
+    const isFetching = useSelector((state: GlobalState) => state.authReducer.isFetching)
     return (
         <form onSubmit={props.handleSubmit}>
             <h2>Login</h2>
             {createField<NameType>(Input,'email','text','email',[required,maxLength100])}
             {createField<NameType>(Input,'password','password','password',[required,maxLength100])}
-            <button>Submit</button>
+            <button disabled={ isFetching }>Submit</button>
             {props.error && <span className={c.error}>{props.error}</span>}
+            
         </form>
     )
 }
@@ -57,10 +59,9 @@ const LoginPage: React.FC<Props> = props => {
     const onSubmitReset = (data: any) => {
         dispatch(getResetPassword(data.email))
     }
-    const onSubmitRegister = async (data: Register) => {
-        await dispatch(getRegister(data))
+    const onSubmitRegister = (data: Register) => {
+        dispatch(getRegister(data))
         setRegisterForm(false)
-        debugger
     }
 
     if(isAuth) {
@@ -86,11 +87,16 @@ const LoginPage: React.FC<Props> = props => {
             }
             
             <button 
-                onClick={ () => isForgottenPassword ? setForgottenPassword(false) : setForgottenPassword(true) }>
+                onClick={ () => isForgottenPassword ? setForgottenPassword(false) : setForgottenPassword(true) }
+                disabled={ isRegisterFrom }
+            >
+                
                 Did you forget password?
             </button>
             <button 
-                onClick={ () => isRegisterFrom ? setRegisterForm(false) : setRegisterForm(true) }>
+                onClick={ () => isRegisterFrom ? setRegisterForm(false) : setRegisterForm(true) }
+                disabled={ isForgottenPassword }
+            >
                 Register
             </button>
         </div>

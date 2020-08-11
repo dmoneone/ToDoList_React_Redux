@@ -28,7 +28,7 @@ type NameType = Extract<keyof SubmitingDataType,string>
 const RegisterForm: React.FC<InjectedFormProps<SubmitingDataType, OwnProps> & OwnProps> = (props) => {
      
     const newUserMsg = useSelector((state: GlobalState) => state.authReducer.newUserMsg)
-    const isAuth = useSelector(getAuthStatus)
+    const isFetching = useSelector((state: GlobalState) => state.authReducer.isFetching)
 
     return (
         <form onSubmit={props.handleSubmit}>
@@ -37,7 +37,7 @@ const RegisterForm: React.FC<InjectedFormProps<SubmitingDataType, OwnProps> & Ow
             {createField<NameType>(Input,'name','text','name',[required,maxLength100])}
             {createField<NameType>(Input,'password','password','password',[required,maxLength100])}
             {createField<NameType>(Input,'extraPassword','password','extraPassword',[required,maxLength100])}
-            <button>submit</button>
+            <button disabled={ isFetching } >submit</button>
             <span>{ newUserMsg ? newUserMsg : 'in processing' }</span>
             {props.error && <span className={c.error}>{props.error}</span>}
         </form>

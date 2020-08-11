@@ -3,6 +3,7 @@ import c from './ProfileCard.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProfile } from '../../../redux/selectors/ProfileCardSelectors'
 import { setAvatar } from '../../../redux/profileReducer'
+import Preloader from '../../Preloader/Preloader'
 
 type Props = {
 
@@ -11,7 +12,6 @@ type Props = {
 const ProfileCard: FC<Props> = (props) => {
 
     const user = useSelector(getProfile)
-
     const dispatch = useDispatch()
 
     const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +24,9 @@ const ProfileCard: FC<Props> = (props) => {
         <div>
             <div className={c.card}>
                 <div className={c.card_header}>
-                    <img src={user.avatarUrl as string}/>
+                    {
+                        user.avatarUrl ? <img src={user.avatarUrl as string}/> : <Preloader/>
+                    }
                 </div>
                 <div className={c.card_content}>
                     <input className={c.file} type='file' onChange={e => onChangeFile(e)} accept='.jpg,.jpeg,.png'/>

@@ -20,11 +20,12 @@ type NameType = Extract<keyof SubmitingDataType,string>
 const SavePasswordForm: React.FC<InjectedFormProps<SubmitingDataType, {}> & {}> = (props) => {
 
     const resetMsg = useSelector((state: GlobalState) => state.authReducer.successfullResetMsg)
+    const isFetching = useSelector((state: GlobalState) => state.authReducer.isFetching)
 
     return (
         <form onSubmit={props.handleSubmit}>
             {createField<NameType>(Input,'password','password','password',[required,maxLength100])}
-            <button>Reset</button>
+            <button disabled={ isFetching } >Save</button>
             {props.error && <span className={c.error}>{props.error}</span>}
             <span>{resetMsg ? resetMsg : 'in processing'}</span>
             { resetMsg && <Redirect to='/auth/login'/>}

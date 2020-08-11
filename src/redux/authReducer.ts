@@ -7,7 +7,8 @@ const initialState = {
     isAuth: false,
     resetMsg: null as string | null,
     successfullResetMsg: null as string | null,
-    newUserMsg: null as string | null
+    newUserMsg: null as string | null,
+    isFetching: false
 }
 
 type State = typeof initialState
@@ -46,6 +47,12 @@ const authReducer = (state: State = initialState, action: ActionTypes): State  =
                 newUserMsg: action.msg
             }
         }
+        case 'toDoList/auth/setFetching': {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default: return state
     }
 }
@@ -68,6 +75,10 @@ export const actions = {
     setNewUser: (msg: string | null) => ({
         type: 'toDoList/auth/setNewUser',
         msg
+    } as const),
+    setFetching: (isFetching: boolean) => ({
+        type: 'toDoList/auth/setFetching',
+        isFetching
     } as const)
 }
 
@@ -75,7 +86,9 @@ type Thunk =  ThunkAction<Promise<void>, GlobalState, unknown, ActionTypes>
 
 export const getLogin = (loginData: any): Thunk => async (dispatch) => {
     try {
+        dispatch(actions.setFetching(true))
         const data: Login = await auth_api.login(loginData)
+        dispatch(actions.setFetching(false))
         localStorage.setItem('token', data.token)
         dispatch(actions.setLogin())
         dispatch(actions.setNewUser(null))
@@ -85,28 +98,35 @@ export const getLogin = (loginData: any): Thunk => async (dispatch) => {
     } catch(err) {
         if(err.response.status === 401) {
             dispatch(stopSubmit('login',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
         if(err.response.status === 404) {
             dispatch(stopSubmit('login',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
         if(err.response.status === 422) {
             dispatch(stopSubmit('login',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
     }
 }
 
 export const getRegister = (registerData: any): Thunk => async (dispatch) => {
     try {
+        dispatch(actions.setFetching(true))
         const data = await auth_api.register(registerData)
+        dispatch(actions.setFetching(false))
         dispatch(actions.setNewUser(data.data.message))
-        debugger
+
 
     } catch(err) {
         if(err.response.status === 404) {
             dispatch(stopSubmit('register',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
         if(err.response.status === 422) {
             dispatch(stopSubmit('register',{_error: err.response.data.error ? err.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
     }
 }
@@ -124,16 +144,20 @@ export const getLogout = (): Thunk => async (dispatch) => {
 
 export const getResetPassword = (email: string): Thunk => async (dispatch) => {
     try {
+        dispatch(actions.setFetching(true))
         const data = await auth_api.resetPassword(email)
+        dispatch(actions.setFetching(false))
         dispatch(actions.setResetMsg(data.message))
         
 
     } catch(e) {
         if(e.response.status === 404) {
             dispatch(stopSubmit('reset',{_error: e.response.data.error ? e.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
         if(e.response.status === 422) {
             dispatch(stopSubmit('reset',{_error: e.response.data.error ? e.response.data.error : 'some input error'}))
+            dispatch(actions.setFetching(false))
         }
     }
 }
@@ -141,8 +165,9 @@ export const getResetPassword = (email: string): Thunk => async (dispatch) => {
 export const savePassword = (userId: string, token: string, password: string): Thunk =>
     async (dispatch) => {
     try {
-
+        dispatch(actions.setFetching(true))
         await auth_api.savePassword(userId, token, password)
+        dispatch(actions.setFetching(false))
         dispatch(actions.setSuccessfullResetMsg('password successfully saved'))
 
     } catch(e) {

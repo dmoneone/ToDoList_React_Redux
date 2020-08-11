@@ -20,12 +20,13 @@ type NameType = Extract<keyof SubmitingDataType,string>
 const ResetForm: React.FC<InjectedFormProps<SubmitingDataType, {}> & {}> = (props) => {
 
     const resetMsg = useSelector((state: GlobalState) => state.authReducer.resetMsg)
+    const isFetching = useSelector((state: GlobalState) => state.authReducer.isFetching)
 
     return (
         <form onSubmit={props.handleSubmit}>
             <h2>Reset</h2>
             {createField<NameType>(Input,'email','text','email',[required,maxLength100])}
-            <button>Reset</button>
+            <button disabled={isFetching}>Reset</button>
             {props.error && <span className={c.error}>{props.error}</span>}
             <span>{resetMsg ? resetMsg : 'reset'}</span>
         </form>

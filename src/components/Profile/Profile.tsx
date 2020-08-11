@@ -3,7 +3,6 @@ import { withAuthRedirect } from '../../hocs/withAuth'
 import { useDispatch } from 'react-redux'
 import { getProfile } from '../../redux/profileReducer'
 import ProfileCard from './ProfileCard/ProfileCard'
-import { useRouteMatch } from 'react-router-dom'
 
 
 
@@ -12,7 +11,6 @@ type Props = {
 }
 
 const Profile: FC<Props> = (props) => {
-    
     const dispatch = useDispatch()
 
     useEffect(() => {
