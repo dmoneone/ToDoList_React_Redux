@@ -47,7 +47,7 @@ const listReducer = (state: State = initialState, action: ActionTypes): State  =
                 ...state,
                 list: [...state.list, {
                     title: action.title,
-                    date: new Date(),
+                    date: new Date().toDateString(),
                     _id: action.postId
                 }] as Array<Item>
             }

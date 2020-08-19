@@ -12,18 +12,20 @@ import ResetPage from './components/Login/SavePasswordForm/SavePasswordForm';
 const App = () => {
     return (
       <BrowserRouter>
+      <Header/>
       <div className='app-wrapper'>
-        <Header/>
-        <div className='main-content'>
-            <Switch>
-              <Route path='/list' render={()=> <List/> } />
-              <Route path='/auth/login' render={()=> <Login/> } />
-              <Route path='/auth/logout' render={()=> <Login/> } />
-              <Route exact path='/auth/reset/:token/:userId' render={()=> <ResetPage/> } />
-              <Route path='/profile' render={()=> <Profile/> } />
-              <Route path='/' exact><Redirect to='/profile'/></Route>
-              <Route path='*' render={() => <div>404</div>} />
-            </Switch>
+        <div className="app-holder">
+          <div className='main-content'>
+              <Switch>
+                <Route path='/list' render={()=> <List/> } />
+                <Route path='/auth/login' render={()=> <Login/> } />
+                <Route path='/auth/logout' render={()=> <Login/> } />
+                <Route exact path='/auth/reset/:token/:userId' render={()=> <ResetPage/> } />
+                <Route path='/profile' render={()=> <Profile/> } />
+                <Route path='/' exact><Redirect to='/profile'/></Route>
+                <Route path='*' render={() => <div>404</div>} />
+              </Switch>
+          </div>
         </div>
       </div>
       </BrowserRouter>

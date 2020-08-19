@@ -32,9 +32,10 @@ export function createField<T extends string>(component: React.FC<WrappedFieldPr
                             name: T,
                             type: string,
                             placeholder: string,
-                            validators: Array<FieldValidatorType> | Array<() => FieldValidatorType> | Array<void>
+                            validators: Array<FieldValidatorType> | Array<() => FieldValidatorType> | Array<void>,
+                            classname?: string
                             ): JSX.Element {
     return (
-        <Field name={name} component={component} type={type} placeholder={placeholder} validate={validators}/>
+        <Field className={classname} name={name} component={component} type={type} placeholder={placeholder} validate={validators}/>
     )
 }

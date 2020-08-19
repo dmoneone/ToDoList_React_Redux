@@ -1,0 +1,78 @@
+.list_item{
+    width: 100%;
+    background: rgb(66, 66, 66);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
+    box-sizing: border-box;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.content {
+    time {
+        font-size: 25px;
+        font-family: Tahoma;
+        padding-left: 5px;
+        color: #fff;
+    }
+    > p {
+        font-size: 15px;
+        font-family: Tahoma;
+        color: #fff; 
+        margin-top: 30px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid rgb(94, 94, 94);
+        display: block;
+        margin-bottom: 5px;
+        word-break: break-all;
+    }
+    padding-bottom: 20px;
+}
+
+.btn-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+button.btn {
+    position: relative;
+    outline: none;
+    background: none;
+    padding: 5px;
+    cursor: pointer;
+    border: 0;
+    box-sizing: border-box;
+    margin-right: 2px;
+    &:before{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 0;
+        background: #000;
+        transition: all ease 0.3s;
+    }
+    &:hover:before {
+        width: 100%;
+    }
+}
+
+.inputTitle{
+    display: inline-block;
+}
+
+.editForm {
+    display: flex;
+    input[type="text"] {
+        background: transparent;
+        outline: none;
+        font-family: Tahoma;
+        color: #fff;
+        border: 0;
+        padding: 10px 5px;
+        font-size: 15px;
+        border-top: 1px solid rgb(94, 94, 94);
+    }
+}
