@@ -6,11 +6,12 @@ import { GlobalState } from '../../redux/redux_store'
 import { Redirect } from 'react-router-dom'
 import { createField, Input } from '../Form/Form'
 import { required, maxLength } from '../../form_validation_checks/formChecks'
-import c from './Login.module.css'
+import c from './Login.module.scss'
 import ResetReduxForm from './ResetForm/ResetFrom'
 import RegisterReduxForm from './RegisterForm/RegisterForm'
 import { getAuthStatus } from '../../redux/selectors/commonSelectors'
 import { SubmitingDataType as Register} from './RegisterForm/RegisterForm'
+import classNames from 'classnames'
 
 const maxLength100 = maxLength(100)
 const maxLength50 = maxLength(50)
@@ -47,11 +48,16 @@ type Props = {
 
 const LoginPage: React.FC<Props> = props => {
 
+
     const isAuth: boolean = useSelector(getAuthStatus)
     const dispatch = useDispatch()
 
     const [isForgottenPassword, setForgottenPassword] = useState(false)
     const [isRegisterFrom, setRegisterForm] = useState(false)
+
+    const selected_button_cn = classNames({
+        [c.active]: isForgottenPassword && !isRegisterFrom || isRegisterFrom && !isForgottenPassword
+    })
 
     const onSubmitLogin = (data: SubmitingDataType) => {
         dispatch(getLogin(data))
@@ -69,7 +75,7 @@ const LoginPage: React.FC<Props> = props => {
     }
 
     return (
-        <div>
+        <div className={c.auth_wrap}>
             {
                 (!isForgottenPassword && !isRegisterFrom) && <LoginReduxForm 
                     onSubmit={onSubmitLogin}
@@ -89,11 +95,13 @@ const LoginPage: React.FC<Props> = props => {
             <button 
                 onClick={ () => isForgottenPassword ? setForgottenPassword(false) : setForgottenPassword(true) }
                 disabled={ isRegisterFrom }
+                className={selected_button_cn}
             >
                 
                 Did you forget password?
             </button>
             <button 
+                className={selected_button_cn}
                 onClick={ () => isRegisterFrom ? setRegisterForm(false) : setRegisterForm(true) }
                 disabled={ isForgottenPassword }
             >

@@ -38,6 +38,7 @@
 .bm-menu-wrap {
     position: fixed;
     height: 100%;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
 }
   
   /* General sidebar styles */
@@ -67,10 +68,11 @@
     font-family: Tahoma;
     padding: 20px 0;
     transition: all ease 0.3s;
+    outline: none;
 }
 
 .bm-item:hover {
-    color: rgb(30, 71, 153) !important;
+    color: rgb(206, 205, 206) !important;
 }
 
 .bm-item:active {

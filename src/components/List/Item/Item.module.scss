@@ -1,27 +1,22 @@
 .list_item{
     width: 100%;
-    background: rgb(66, 66, 66);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
     box-sizing: border-box;
-    padding: 20px;
-    margin-top: 20px;
     position: relative;
+    margin-top: 5px;
 }
 
 .content {
     time {
-        font-size: 25px;
+        font-size: 13px;
         font-family: Tahoma;
-        padding-left: 5px;
-        color: #fff;
+        padding: 0px 10px 0px 25px;
+        color: rgb(206, 205, 206);
     }
     > p {
         font-size: 15px;
         font-family: Tahoma;
-        color: #fff; 
-        margin-top: 30px;
-        padding-bottom: 3px;
-        border-bottom: 1px solid rgb(94, 94, 94);
+        color: rgb(206, 205, 206); 
+        padding: 0px 10px 0px 25px;
         display: block;
         margin-bottom: 5px;
         word-break: break-all;
@@ -35,7 +30,7 @@
     top: 0;
 }
 
-button.btn {
+.btn {
     position: relative;
     outline: none;
     background: none;
@@ -57,6 +52,18 @@ button.btn {
     &:hover:before {
         width: 100%;
     }
+    &:hover::after {
+        content: attr(data-title); /* Выводим текст */
+        position: absolute; /* Абсолютное позиционирование */
+        left: 0; top: 101%; /* Положение подсказки */
+        z-index: 1; /* Отображаем подсказку поверх других элементов */
+        background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+        font-family: Arial, sans-serif; /* Гарнитура шрифта */
+        font-size: 11px; /* Размер текста подсказки */
+        padding: 5px 10px; /* Поля */
+        border: 1px solid #333; /* Параметры рамки */
+        word-break: normal;
+       }
 }
 
 .inputTitle{
@@ -69,10 +76,10 @@ button.btn {
         background: transparent;
         outline: none;
         font-family: Tahoma;
-        color: #fff;
+        color: rgb(206, 205, 206);
         border: 0;
-        padding: 10px 5px;
+        padding: 9px 5px;
         font-size: 15px;
-        border-top: 1px solid rgb(94, 94, 94);
+        border-bottom: 1px solid rgb(94, 94, 94);
     }
 }

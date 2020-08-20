@@ -3,3 +3,55 @@
     display: block;
     margin-top: 20px;
 }
+
+.addItem_form {
+    box-sizing: border-box;
+}
+
+.addItem_form span {
+    font-family: Tahoma;
+    font-size: 25px;
+    color: rgb(206, 205, 206);
+    padding: 10px;
+    display: block;
+}
+
+.addItem_form input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 30px;
+    background: 0;
+    border: 0;
+    border-bottom: 2px solid rgb(206, 205, 206);
+    padding: 5px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 15px;
+    font-family: tahoma;
+    color: rgb(206, 205, 206);
+}
+
+.addItem_form button {
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+    display: block;
+    padding: 5px 10px;
+    border: 1px solid rgb(94, 94, 94);
+    margin-top: 10px;
+    font-family: Tahoma;
+    color: rgb(94, 94, 94);
+    background: transparent;
+    transition: all ease 0.3s;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
+}
+
+.addItem_form button:hover {
+    color: rgb(206, 205, 206);
+    border: 1px solid rgb(206, 205, 206);
+    padding: 5px 15px;
+}
+
+.addItem_form input::placeholder {
+    color: rgb(206, 205, 206);
+}

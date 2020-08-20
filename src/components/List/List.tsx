@@ -3,6 +3,9 @@ import Paginator from './Paginator/Paginator'
 import Item from './Item/Item'
 import { Item as ItemType } from '../../redux/listReducer'
 import AddNewPostForm from './AddNewPostForm/AddNewPostForm'
+import c from './List.module.scss'
+import cItem from './Item/Item.module.scss'
+import binI from '../../assets/icons/bin.png'
 
 type Props = {
     list: Array<ItemType>,
@@ -15,9 +18,13 @@ type Props = {
 const List: FC<Props> = React.memo(props => {
 
     return (
-        <div>
+        <div className={c.list}>
+            <div className={c.btn_panel}>
+                <button data-title='remove all items' className={cItem.btn} onClick={() => props.clearList()}><img src={binI} /></button>
+                <span className={c.itemsLen}>Items: {props.list.length}</span>
+            </div>
             <AddNewPostForm/>
-            <button onClick={() => props.clearList()}>Clear List</button>
+            <span className={c.tasks}>Your tasks: </span>
             <ul className={'collection'}>
                 { props.list.length > 0 && props.list.map(item => {
                     return <Item
@@ -28,7 +35,7 @@ const List: FC<Props> = React.memo(props => {
                         removePost={props.removePost}
                     />
                 }) }
-                { props.list.length === 0 && <span>No Items</span>}
+                { props.list.length === 0 && <span className={c.noItems}>No Items</span>}
             </ul>
             <Paginator 
                 getList={props.getList}

@@ -37,7 +37,8 @@ const ProfileCard: FC<Props> = (props) => {
                 <div className={c.card_footer}>
                     <ul>
                     <li>
-                        <a href="#">Footer</a>
+                        <a target="_blank" href="https://www.linkedin.com/in/dmitry-kirilenko-007a40165/">App created by dmoneone</a>
+                        <a target="_blank" href="https://github.com/dmoneone">Author's Github</a>
                     </li>
                     </ul>
                 </div>

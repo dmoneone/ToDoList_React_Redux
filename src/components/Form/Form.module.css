@@ -3,9 +3,12 @@
 }
 
 .form_control.error input{
-    border: 1px solid rgb(206, 73, 73);
+    border-bottom: 1px solid rgb(206, 73, 73);
 }
 
 .span_error{
     color: rgb(206, 73, 73);
+    font-family: Tahoma;
+    padding: 5px;
+    display: block;
 }

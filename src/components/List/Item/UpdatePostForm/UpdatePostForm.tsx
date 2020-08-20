@@ -16,7 +16,8 @@ type SubmitingDataType = {
 }
 
 type OwnFormProps = {
-    initialValues: string
+    initialValues: string,
+    turnOffEditMode: () => void
 }
 
 type NameType = Extract<keyof SubmitingDataType,string>
@@ -25,7 +26,7 @@ const UpdatePostForm: React.FC<InjectedFormProps<SubmitingDataType, OwnFormProps
     return (
         <form onSubmit={props.handleSubmit} className={c.editForm}>
             {createField<NameType>(Input,'title','text','title',[maxLength100])}
-            <button className={c.btn}><img src={saveI} alt=""/></button>
+            <button data-title='save changes' className={c.btn}><img src={saveI} alt=""/></button>
         </form>
     )
 }
@@ -40,20 +41,23 @@ type MapDispatch = {
 
 type OwnProps = {
     postId: string,
-    initialValues: any
+    initialValues: any,
+    turnOffEditMode: () => void
 }
 
 type Props = MapDispatch & OwnProps
 
 const UpdateForm: React.FC<Props> = props => {
-    const onSubmit = (data: SubmitingDataType) => {
-        props.updatePost(props.postId, data.title)
+    const onSubmit = async (data: SubmitingDataType) => {
+        await props.updatePost(props.postId, data.title)
+        props.turnOffEditMode()
     }
     return (
         <div>
             <UpdatePostReduxForm 
                 onSubmit={onSubmit}
                 initialValues={props.initialValues}
+                turnOffEditMode={props.turnOffEditMode}
             />
         </div>
     )

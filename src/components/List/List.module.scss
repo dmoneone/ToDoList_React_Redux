@@ -1,0 +1,26 @@
+.list {
+    width: 100%;
+    background: 	rgb(66, 66, 66);
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 40px;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
+}
+
+.tasks{
+    font-family: Tahoma;
+    font-size: 15px;
+    color: rgb(206, 205, 206);
+    margin-top: 50px;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.noItems{
+    font-family: Tahoma;
+    color: rgb(206, 205, 206);
+}
+
+.itemsLen{
+    font-family: Tahoma;
+}

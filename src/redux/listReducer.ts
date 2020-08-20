@@ -1,7 +1,8 @@
 import store, { ActionsTypes, GlobalState } from "./redux_store"
 import { ThunkAction } from "redux-thunk"
 import { list_api, List, RemovedPost, UpdatedPost, AddedPost } from "../api/api"
-import { title } from "process"
+import {reset} from 'redux-form';
+import { getLogout } from "./authReducer";
 
 export type Item = {
     date: string,
@@ -86,6 +87,9 @@ export const getList = (page: number): Thunk => async (dispatch) => {
         dispatch(actions.setList(data.list, data.pageCount))
     } catch(err) {
         console.log(err)
+        if(err.response.status === 401 && err.response.statusText === 'Unauthorized') {
+            dispatch(getLogout())
+        }
     }
 }
 
@@ -93,6 +97,8 @@ export const addPost = (title: string): Thunk => async (dispatch) => {
     try {
         const data = await list_api.addPost(title) as AddedPost
         dispatch(actions.setAddedPost(data.newPostTitle, data.id))
+        //@ts-ignore
+        dispatch(reset('addNewPostForm'))
     } catch(err) {
         console.log(err)
     }

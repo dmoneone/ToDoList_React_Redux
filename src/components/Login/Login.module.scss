@@ -1,0 +1,74 @@
+.error{
+    color: rgb(206, 73, 73);
+    display: block;
+    margin-top: 20px;
+    font-family: Tahoma;
+    padding: 5px;
+    
+}
+
+.auth_wrap{
+    width: 100%; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    span{
+        font-family: Tahoma;
+        color: rgb(206, 205, 206);
+        font-size: 15px;
+        display: block;
+        padding: 5px;
+    }
+    h2{
+        font-family: Tahoma;
+        font-size: 35px;
+        color: rgb(206, 205, 206);
+        display: block;
+        padding: 5px;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        border: 0;
+        outline: none;
+        background: rgb(206, 205, 206);
+        box-sizing: border-box;
+        padding: 15px;
+        font-size: 20px;
+        color: rgb(59, 58, 61);
+        border: 2px solid rgb(150, 149, 150);
+        margin-top: 20px;
+        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
+    }
+    button {
+        transition: all ease 0.3s;
+        outline: none;
+        margin-top: 20px;
+        background: transparent;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+        font-size: 20px;
+        color: rgb(206, 205, 206);
+        border: 2px solid rgb(206, 205, 206);
+        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.13);
+        cursor: pointer;
+        display: block;
+        text-align: center;
+        &:hover{
+            box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+        }
+        &:disabled,
+        &[disabled] {
+            display: none;
+        }
+    }
+}
+
+.active {
+    border: 2px solid rgb(32, 69, 152) !important;
+}

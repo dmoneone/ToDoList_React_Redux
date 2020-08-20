@@ -20,15 +20,15 @@ const Item: FC<Props> = React.memo(props => {
         <>  
             <li className={c.list_item} >
                 <div className={c.content}>
-                    <time>{props.date.toString()}</time>
                     <p>
                         { !editMode && props.title } 
-                        { editMode && <UpdatePostForm initialValues={{title: props.title}} postId={props.id} /> }
+                        { editMode && <UpdatePostForm turnOffEditMode={ () => setEditMode(false) } initialValues={{title: props.title}} postId={props.id} /> }
                     </p>
+                    <time>Added at: {props.date.toString()}</time>
                 </div>
                 <div className={c['btn-panel']}>
-                    <button className={c.btn} onClick={ () => editMode ? setEditMode(false) : setEditMode(true) }><img src={edtI} /></button> 
-                    <button className={c.btn} onClick={ () => props.removePost(props.id) }><img src={rmvI} /></button>
+                    <button data-title='edit item' className={c.btn} onClick={ () => editMode ? setEditMode(false) : setEditMode(true) }><img src={edtI} /></button> 
+                    <button data-title='remove item' className={c.btn} onClick={ () => props.removePost(props.id) }><img src={rmvI} /></button>
                 </div>
             </li>
         </>

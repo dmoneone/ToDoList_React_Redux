@@ -2,9 +2,10 @@
 
 .card {
   background-color: #f4f4f4;
-  width: 300px;
-  margin: 10px auto;
+  max-width: 300px;
+  margin: 30px auto;
   box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+
 }
 
 .card_header {
@@ -15,6 +16,7 @@
 
 .card_header img{
   width: 100%;
+  margin-top: -65px;
 }
 
 .card_content {
@@ -56,9 +58,22 @@
 }
 
 .card_footer ul li{
-  display: inline-block;
   list-style: none;
   margin: 5px;
+  display: block;
+}
+
+.card_footer ul li a{
+  padding: 5px;
+  display: block;
+  font-family: Tahoma;
+  color: #727272;
+  text-decoration: none;
+  transition: all ease 0.3s;
+}
+
+.card_footer ul li a:hover {
+  color: #464646;
 }
 
 .card_footer ul li i {

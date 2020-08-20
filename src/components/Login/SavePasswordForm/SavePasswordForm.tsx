@@ -2,7 +2,7 @@ import React from 'react'
 import { maxLength, required } from "../../../form_validation_checks/formChecks"
 import { InjectedFormProps, reduxForm } from "redux-form"
 import { createField, Input } from "../../Form/Form"
-import c from '../Login.module.css'
+import c from '../Login.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useRouteMatch } from 'react-router-dom'
 import { savePassword } from '../../../redux/authReducer'
