@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Item as ItemType, getList, removePost, clearList } from '../../redux/listReducer'
 import { GlobalState } from '../../redux/redux_store'
 import List from './List'
+import { useRouteMatch } from 'react-router-dom'
+import { useCurrentPageToLocalStorage } from '../../hooks/hooks'
 
 
 type MapState = {
@@ -20,7 +22,10 @@ type MapDispatch ={
 type Props = MapState & MapDispatch
 
 const ContainerList: FC<Props> = (props) => {
- 
+    
+    const urlData = useRouteMatch()
+    useCurrentPageToLocalStorage(urlData.url)
+
     useEffect(() => {
         props.getList(1)
     }, [])

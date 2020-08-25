@@ -7,7 +7,7 @@
 }
 
 .span_error{
-    color: rgb(206, 73, 73);
+    color: rgb(206, 73, 73) !important;
     font-family: Tahoma;
     padding: 5px;
     display: block;

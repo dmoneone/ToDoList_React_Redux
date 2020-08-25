@@ -12,6 +12,7 @@ import RegisterReduxForm from './RegisterForm/RegisterForm'
 import { getAuthStatus } from '../../redux/selectors/commonSelectors'
 import { SubmitingDataType as Register} from './RegisterForm/RegisterForm'
 import classNames from 'classnames'
+import { defaultRedirect } from '../../App'
 
 const maxLength100 = maxLength(100)
 const maxLength50 = maxLength(50)
@@ -31,6 +32,7 @@ const LoginForm: React.FC<InjectedFormProps<SubmitingDataType, {}> & {}> = (prop
             {createField<NameType>(Input,'email','text','email',[required,maxLength100])}
             {createField<NameType>(Input,'password','password','password',[required,maxLength100])}
             <button disabled={ isFetching }>Submit</button>
+            { isFetching && <span>Please, wait</span>}
             {props.error && <span className={c.error}>{props.error}</span>}
             
         </form>
@@ -71,7 +73,9 @@ const LoginPage: React.FC<Props> = props => {
     }
 
     if(isAuth) {
-        return <Redirect to="/profile"/>
+        const url = defaultRedirect()
+        debugger
+        return <Redirect to={url}/>
     }
 
     return (

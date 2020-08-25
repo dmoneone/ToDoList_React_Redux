@@ -10,3 +10,7 @@ export function useAuthRedirect() {
     if(!isAuth) return Redirect
     return null
 }
+
+export function useCurrentPageToLocalStorage(url: string): void {
+    localStorage.setItem('currentPageUrl', url)
+}

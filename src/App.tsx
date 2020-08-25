@@ -9,6 +9,11 @@ import Profile from './components/Profile/Profile';
 import List from './components/List/ContainerList';
 import ResetPage from './components/Login/SavePasswordForm/SavePasswordForm';
 
+export const defaultRedirect = () => {
+  const url = localStorage.getItem('currentPageUrl') 
+  return url ? url : '/profile'
+}
+
 const App = () => {
     return (
       <BrowserRouter>
@@ -22,7 +27,7 @@ const App = () => {
                 <Route path='/auth/logout' render={()=> <Login/> } />
                 <Route exact path='/auth/reset/:token/:userId' render={()=> <ResetPage/> } />
                 <Route path='/profile' render={()=> <Profile/> } />
-                <Route path='/' exact><Redirect to='/profile'/></Route>
+                <Route path='/' exact><Redirect to={defaultRedirect()}/></Route>
                 <Route path='*' render={() => <div>404</div>} />
               </Switch>
           </div>

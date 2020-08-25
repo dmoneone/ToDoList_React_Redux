@@ -5,6 +5,7 @@ import { createField, Input } from '../../Form/Form'
 import { required, maxLength, minLength } from '../../../form_validation_checks/formChecks'
 import c from './AddNewPostFrom.module.css'
 import { addPost } from '../../../redux/listReducer'
+import { Clock } from '../../Clock/Clock'
 
 
 const maxLength100 = maxLength(100)
@@ -20,7 +21,7 @@ type NameType = Extract<keyof SubmitingDataType,string>
 const AddNewPostFrom: React.FC<InjectedFormProps<SubmitingDataType, {}> & {}> = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={c.addItem_form}>
-            <span className={c.time}>{new Date().toString().split('G')[0]}</span>
+            <Clock/>
             {createField<NameType>(Input,'title','text','title',[required])}
             <button type='submit'>add</button>
             {props.error && <span className={c.error}>{props.error}</span>}

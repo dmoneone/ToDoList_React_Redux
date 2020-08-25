@@ -35,7 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-sw": "http-server ./build"
+    "start-sw": "http-server ./build",
+    "start-dev": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
